@@ -1,0 +1,48 @@
+.monospace{
+	font-family: "Courier New", "Lucida Console", Courier, monospace, Monaco;
+}
+.bw{
+	background-color: black; color:#FFFFFF;
+}
+.grey{
+	background-color:#0F0F0F; color:#00FF00;
+}
+html,body{ height: 100%; margin:0;}
+div {margin:0px; padding:0px; display:block;}
+div.container{
+	overflow:hidden;
+	position:absolute; top:0px; bottom:0px; left:5px; right:0px;
+	/* border:1px solid green; */
+	margin:0px; padding:0px;
+}
+div.child {  border:1px solid red;   }
+div.selector{width:100px; height:100%; font-size:10pt;float:left; background-color: #1F1F1F;}
+div.workspace{
+position:absolute;
+top:0px;
+left:103px;
+right:0px;
+height:100%;
+
+}
+ul.options{list-style-type: none; padding:0px; margin:0px;}
+li{line-height: 150%; font-family:Verdana,Kartika;}
+li.header{font-family:Candara; background-color: #3F3F3F; border-bottom:3px solid green; font-weight:bold; text-align:center}
+
+input[type=radio]{	opacity: 0.0; position:absolute; left:-9999px; top:-9999px;}
+textarea{ resize: none; box-sizing:border-box; width:100%; height:100%; border: none; }
+label{ text-align:center; width:100%; display:block; border: 1px solid transparent; color: #7F7F7F;}
+input[type=radio]:hover + label {
+	font-weight:bold;
+	color: #FFFFFF;
+	background-color: #3F3F3F;
+	border: 1px solid green;
+}
+
+input[type=radio]:checked + label {
+  font-weight:bold;
+  color: #FF0000;
+  background-color:#0F0F0F;
+  border: 1px solid green;
+
+}

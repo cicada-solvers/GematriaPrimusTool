@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+<head>
+<title>Gematria Primus Tool</title>
+<link rel="stylesheet" type="text/css" href="jxlate.css">
+<style>
+.sidefoot{position:absolute; bottom:0; left:0; width:100px;}
+.link{  text-align:center; width:100%; display:block; border: 1px solid transparent; color: #7F7F7F;}
+</style>
+<script src="gematria.js"></script>
+<script>
+var oForm=null;
+var mode=0;
+var mode_bases=['r','l','v','p','t'];
+function xlate_text(s,baseFrom,baseTo){
+	return gp_replace(s,baseFrom,baseTo);
+}
+function xlate_switch(mode,newmode){
+	text=oForm.elements["text"].value;
+	if(text=="") return;
+
+	base=mode_bases[mode];
+	newbase=mode_bases[newmode];
+
+	text=xlate_text(text,base,newbase)
+	oForm.elements["text"].value=text;
+	oForm.elements["text"].focus();
+
+}
+function xlate_poll(){
+	//console.log("x");
+	var newmode=getCheckedRadioValue("mode");
+	if(newmode!=mode){
+		console.log("changed! "+mode+"->"+newmode);
+		xlate_switch(mode,newmode);
+		mode=newmode;
+	}
+}
+function xlate_init(){
+	if(oForm==null){
+		oForm=document.getElementById('frmInput');
+		document.getElementById("rad0").checked=true;//clearing old form input
+		oForm.elements["text"].value="";//clearing old form input
+		oForm.elements["text"].focus();
+	}
+
+
+
+	var options = document.getElementById("options");
+	if (options.addEventListener) {
+		options.addEventListener("mousewheel", MouseWheelHandler, false);// IE9, Chrome, Safari, Opera
+		options.addEventListener("DOMMouseScroll", MouseWheelHandler, false);// Firefox
+	}
+	else options.attachEvent("onmousewheel", MouseWheelHandler);// IE 6/7/8
+
+
+
+
+	setInterval("xlate_poll()",100);
+
+}
+
+function getCheckedRadioValue(sname){
+	var radios = document.getElementsByName(sname);
+	for (var i = 0, length = radios.length; i < length; i++) if (radios[i].checked) return radios[i].value;
+	return undefined;
+}
+
+function MouseWheelHandler(e) {
+	// cross-browser wheel delta
+	var e = window.event || e; // old IE support
+	var delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)));
+
+	var target=-1;
+	var radios = document.getElementsByName("mode");
+	for (var i = 0, length = radios.length; i < length; i++)
+		if (radios[i].checked){
+			//console.log("i="+i);
+			target=modp(i-delta,mode_bases.length); radios[i].checked=false;
+		}
+	//console.log(target);
+
+	for (var i = 0, length = radios.length; i < length; i++)
+		if (i==target) radios[i].checked=true;
+
+
+
+	return false;
+
+}
+function modp(n,d){
+	while(n<0) n+=d;
+	return (n%d);
+}
+
+/*
+function generateOption(parent){
+	var el=document.createElement("li");
+}
+functions generateOptions(){
+	var parent=document.getElementById("options");
+
+}
+*/
+</script>
+</head>
+<body class="monospace bw" onload="xlate_init()">
+<form action="#" id="frmInput">
+	<div class="container">
+		<div class="child selector">
+			<ul class="options" id="options">
+				<li class="header" id="header">GPT 2.0</li>
+				<li><input type="radio" name="mode" value="0" id="rad0" checked><label for="rad0" title="Futhark runes available in GP">Runes</label></li><!-- BR has been deprecated -->
+				<li><input type="radio" name="mode" value="1" id="rad1"><label for="rad1" title="GP 'letters' with spaces in between. Lossless.">Letters Exact</label></li>
+				<li><input type="radio" name="mode" value="4" id="rad4"><label for="rad4" title="Free-text. Possibly lossy because I,O->IO etc">Letters Easy</label></li>
+				<li><input type="radio" name="mode" value="2" id="rad2"><label for="rad2" title="Prime values associated with each Rune">Values</label></li>
+				<li><input type="radio" name="mode" value="3" id="rad3"><label for="rad3" title="GP table positions of each rune">Position</label></li>
+			</ul>
+			<div class="sidefoot">
+				<hr>
+				<a class="link" href="http://vignette2.wikia.nocookie.net/uncovering-cicada/images/1/1a/Testout.jpg/revision/latest?cb=20130107123015">GP Table</a>
+			</div>
+		</div>
+		<div class="child workspace">
+			<textarea name="text" spellcheck="false" wrap="hard" placeholder="Enter your data here.    Select an option to switch display modes. (Hover over an option for a description)" class="grey"></textarea>
+		</div>
+	</div>
+</form>
+</body>
+</html>
