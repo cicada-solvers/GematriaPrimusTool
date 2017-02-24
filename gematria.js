@@ -10,7 +10,7 @@ var gp=[
 ["\u16BB",'H','','23'],
 ["\u16BE",'N','','29'],
 ["\u16C1",'I','','31'],
-["\u16C2",'J','','37'],
+["\u16C4",'J','','37'],//used to be \u16C2 due to error.
 ["\u16C7",'EO','','41'],
 ["\u16C8",'P','','43'],
 ["\u16C9",'X','','47'],
@@ -256,7 +256,7 @@ function gp_join(a, to){
 
 function gp_preprocess(s,from){
 	if(from=="t" || from=="l") s=s.toUpperCase();
-	return s.replace(/\u2022/g," ").replace(/\u2019/g," ").replace(/\u25E6/g," ");
+	return s.replace(/\u2022/g," ").replace(/\u2019/g," ").replace(/\u25E6/g," ").replace(/\u16C2/,"\u16C4");
 }
 function gp_postprocess(s,to){
 	return s;
