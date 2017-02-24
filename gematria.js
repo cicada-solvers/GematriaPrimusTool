@@ -255,6 +255,7 @@ function gp_join(a, to){
 //-----------------------------------------------------
 
 function gp_preprocess(s,from){
+	if(from=="t" || from=="l") s=s.toUpperCase();
 	return s.replace(/\u2022/g," ").replace(/\u2019/g," ").replace(/\u25E6/g," ");
 }
 function gp_postprocess(s,to){
