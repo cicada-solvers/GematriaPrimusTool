@@ -34,6 +34,11 @@ var gp=[
 //bullets to spaces
 // Q -> C
 
+String.prototype.replaceAll = function(target, replacement) {
+  return this.split(target).join(replacement);
+};
+
+
 function isBlank(x){
 	if((typeof x)=="string")
 		if(x.length==0) return true;
@@ -256,7 +261,7 @@ function gp_join(a, to){
 
 function gp_preprocess(s,from){
 	if(from=="t" || from=="l") s=s.toUpperCase();
-	return s.replace(/\u2022/g," ").replace(/\u2019/g," ").replace(/\u25E6/g," ").replace(/\u16C2/,"\u16C4");
+	return s.replaceAll(/\u2022/g," ").replaceAll(/\u2019/g," ").replaceAll(/\u25E6/g," ").replaceAll(/\u16C2/,"\u16C4");
 }
 function gp_postprocess(s,to){
 	return s;
