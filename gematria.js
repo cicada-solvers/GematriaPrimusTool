@@ -261,8 +261,9 @@ function gp_join(a, to){
 
 function gp_preprocess(s,from){
 	if(from=="t" || from=="l") s=s.toUpperCase();
-	if(from=="t") s = s.replaceAll(/Q/g,"CW");
-	if(from=="l") s = s.replaceAll(/Q/g,"C W");
+	if(from=="t") s = s.replaceAll(/QU/g,"CW");
+	if(from=="l") s = s.replaceAll(/Q\s+/g,"C W");
+	if(from=="t" || from=="l") s = s.replaceAll(/Q/g,"C");
 	return s.replaceAll(/\u2022/g," ").replaceAll(/\u2019/g," ").replaceAll(/\u25E6/g," ").replaceAll(/\u16C2/,"\u16C4");
 }
 function gp_postprocess(s,to){
